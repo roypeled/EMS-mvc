@@ -46,64 +46,29 @@
 
 	"use strict";
 	
-	var _UserHeaderController = __webpack_require__(1);
+	var _AppView = __webpack_require__(1);
 	
-	var _UserHeaderController2 = _interopRequireDefault(_UserHeaderController);
+	var _AppView2 = _interopRequireDefault(_AppView);
 	
-	var _UserHeaderView = __webpack_require__(2);
+	var _AppController = __webpack_require__(3);
 	
-	var _UserHeaderView2 = _interopRequireDefault(_UserHeaderView);
+	var _AppController2 = _interopRequireDefault(_AppController);
 	
-	var _UsersService = __webpack_require__(8);
-	
-	var _UsersService2 = _interopRequireDefault(_UsersService);
-	
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(2);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	__webpack_require__(25);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var view = new _UserHeaderView2.default();
-	var ctrl = new _UserHeaderController2.default(9, _UsersService2.default, view);
+	var view = new _AppView2.default();
+	new _AppController2.default(9, view);
+	
 	(0, _jquery2.default)(document.body).append(view.template);
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var UserHeaderController = function () {
-		function UserHeaderController(id, userService, userView) {
-			_classCallCheck(this, UserHeaderController);
-	
-			this.userView = userView;
-			userService.get(id).then(this.onUser.bind(this));
-		}
-	
-		_createClass(UserHeaderController, [{
-			key: "onUser",
-			value: function onUser(user) {
-				this.userView.render(user);
-			}
-		}]);
-	
-		return UserHeaderController;
-	}();
-	
-	exports.default = UserHeaderController;
-
-/***/ },
-/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -114,37 +79,40 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(2);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	__webpack_require__(4);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var UserHeaderView = function () {
-		function UserHeaderView() {
-			_classCallCheck(this, UserHeaderView);
+	var AppView = function () {
+		function AppView() {
+			_classCallCheck(this, AppView);
 	
-			this.template = (0, _jquery2.default)("<div></div>");
+			this.template = (0, _jquery2.default)("\n\t\t\t<div>\n\t\t\t\t<div class=\"header-container\"></div>\n\t\t\t\t<div class=\"list-container\"></div>\n\t\t\t</div>\n\t\t");
 		}
 	
-		_createClass(UserHeaderView, [{
-			key: "render",
-			value: function render(userData) {
-				this.template.html("\n\t\t\t<header class=\"user-header\">\n\t\t\t\t<h1>" + userData.name + "</h1>\n\t\t\t\t<ul>\n\t\t\t\t\t<li>" + userData.email + "</li>\n\t\t\t\t\t<li>" + userData.phone + "</li>\n\t\t\t\t</ul>\n\t\t\t\t<small>" + userData.address.street + ", " + userData.address.city + "</small>\n\t\t\t</header>\n\t\t");
+		_createClass(AppView, [{
+			key: "renderHeader",
+			value: function renderHeader(headerView) {
+				this.template.find(".header-container").append(headerView.template);
+			}
+		}, {
+			key: "renderList",
+			value: function renderList(listView) {
+				this.template.find(".list-container").append(listView.template);
 			}
 		}]);
 	
-		return UserHeaderView;
+		return AppView;
 	}();
 	
-	exports.default = UserHeaderView;
+	exports.default = AppView;
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10370,23 +10338,269 @@
 
 
 /***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _PostsListController = __webpack_require__(4);
+	
+	var _PostsListController2 = _interopRequireDefault(_PostsListController);
+	
+	var _PostsListView = __webpack_require__(16);
+	
+	var _PostsListView2 = _interopRequireDefault(_PostsListView);
+	
+	var _UserController = __webpack_require__(6);
+	
+	var _UserController2 = _interopRequireDefault(_UserController);
+	
+	var _UserHeaderView = __webpack_require__(19);
+	
+	var _UserHeaderView2 = _interopRequireDefault(_UserHeaderView);
+	
+	var _UsersService = __webpack_require__(22);
+	
+	var _UsersService2 = _interopRequireDefault(_UsersService);
+	
+	var _PostsService = __webpack_require__(24);
+	
+	var _PostsService2 = _interopRequireDefault(_PostsService);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AppController = function AppController(id, appView) {
+		_classCallCheck(this, AppController);
+	
+		var userView = new _UserHeaderView2.default();
+		new _UserController2.default(id, _UsersService2.default, userView);
+	
+		var listView = new _PostsListView2.default();
+		new _PostsListController2.default(id, _PostsService2.default, listView);
+	
+		appView.renderHeader(userView);
+		appView.renderList(listView);
+	};
+	
+	exports.default = AppController;
+
+/***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _PostController = __webpack_require__(5);
+	
+	var _PostController2 = _interopRequireDefault(_PostController);
+	
+	var _PostView = __webpack_require__(13);
+	
+	var _PostView2 = _interopRequireDefault(_PostView);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var PostsListController = function () {
+		function PostsListController(userId, postsService, postsListView) {
+			_classCallCheck(this, PostsListController);
+	
+			this.postsListView = postsListView;
+			postsService.getPostsByUser(userId).then(this.onPosts.bind(this));
+		}
+	
+		_createClass(PostsListController, [{
+			key: "onPosts",
+			value: function onPosts(posts) {
+				var _this = this;
+	
+				posts.forEach(function (post) {
+					var view = new _PostView2.default();
+					new _PostController2.default(post, view);
+					_this.postsListView.addItem(view);
+				});
+			}
+		}]);
+	
+		return PostsListController;
+	}();
+	
+	exports.default = PostsListController;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _UserController = __webpack_require__(6);
+	
+	var _UserController2 = _interopRequireDefault(_UserController);
+	
+	var _UserPostView = __webpack_require__(7);
+	
+	var _UserPostView2 = _interopRequireDefault(_UserPostView);
+	
+	var _UserCacheService = __webpack_require__(12);
+	
+	var _UserCacheService2 = _interopRequireDefault(_UserCacheService);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var PostController = function () {
+		function PostController(postData, postView) {
+			_classCallCheck(this, PostController);
+	
+			this.postView = postView;
+			postView.render(postData);
+	
+			this.createUser(postData.userId);
+		}
+	
+		_createClass(PostController, [{
+			key: "createUser",
+			value: function createUser(userId) {
+				var view = new _UserPostView2.default();
+				new _UserController2.default(userId, (0, _UserCacheService2.default)(), view);
+				this.postView.appendUser(view);
+			}
+		}]);
+	
+		return PostController;
+	}();
+	
+	exports.default = PostController;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var UserController = function () {
+		function UserController(id, userService, userView) {
+			_classCallCheck(this, UserController);
+	
+			this.userView = userView;
+			var promise = userService.get(id);
+			promise.then(this.onUser.bind(this));
+	
+			this.userView.onSayHi(this.sayHi.bind(this));
+		}
+	
+		_createClass(UserController, [{
+			key: "sayHi",
+			value: function sayHi() {
+				alert(this.user.name + " says hi!");
+			}
+		}, {
+			key: "onUser",
+			value: function onUser(user) {
+				this.user = user;
+				this.userView.render(user);
+			}
+		}]);
+	
+		return UserController;
+	}();
+	
+	exports.default = UserController;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _jquery = __webpack_require__(2);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	__webpack_require__(8);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var UserPostView = function () {
+		function UserPostView() {
+			_classCallCheck(this, UserPostView);
+	
+			this.template = (0, _jquery2.default)("<div class='post-user-details'></div>");
+		}
+	
+		_createClass(UserPostView, [{
+			key: "onSayHi",
+			value: function onSayHi(handler) {
+				this.sayHiHandler = handler;
+			}
+		}, {
+			key: "render",
+			value: function render(userData) {
+				this.template.html("\n\t\t\t<div class=\"avatar\"></div>\n\t\t\t<h3>" + userData.name + "</h3>\n\t\t");
+	
+				this.template.find(".avatar").on("click", this.sayHiHandler);
+			}
+		}]);
+	
+		return UserPostView;
+	}();
+	
+	exports.default = UserPostView;
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(5);
+	var content = __webpack_require__(9);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(11)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./userPost.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./userPost.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -10396,21 +10610,21 @@
 	}
 
 /***/ },
-/* 5 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(10)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "header.user-header {\n  height: 150px;\n  background: #26297c;\n  color: white;\n  position: relative; }\n  header.user-header h1 {\n    position: absolute;\n    left: 50px;\n    bottom: 20px;\n    font-size: 35px; }\n  header.user-header ul {\n    position: absolute;\n    left: 350px;\n    list-style: none;\n    bottom: 50px;\n    margin: 0;\n    padding: 0; }\n    header.user-header ul li {\n      padding: 0;\n      margin: 20px 0; }\n  header.user-header small {\n    position: absolute;\n    left: 350px;\n    bottom: 20px; }\n", ""]);
+	exports.push([module.id, ".post-user-details {\n  position: relative;\n  line-height: 30px;\n  padding-left: 35px; }\n  .post-user-details .avatar {\n    width: 30px;\n    height: 30px;\n    background: #2a2b5e;\n    border-radius: 50%;\n    position: absolute;\n    left: 0;\n    top: 0; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 6 */
+/* 10 */
 /***/ function(module, exports) {
 
 	/*
@@ -10466,7 +10680,7 @@
 
 
 /***/ },
-/* 7 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -10718,7 +10932,57 @@
 
 
 /***/ },
-/* 8 */
+/* 12 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	exports.default = getInstance;
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var instance = void 0;
+	
+	var UserCacheService = function () {
+		function UserCacheService() {
+			_classCallCheck(this, UserCacheService);
+	
+			this.cache = {};
+		}
+	
+		_createClass(UserCacheService, [{
+			key: "save",
+			value: function save(user) {
+				this.cache[user.id] = user;
+			}
+		}, {
+			key: "get",
+			value: function get(id) {
+				var _this = this;
+	
+				return new Promise(function (resolve, reject) {
+					if (_this.cache[id]) resolve(_this.cache[id]);else reject();
+				});
+			}
+		}]);
+	
+		return UserCacheService;
+	}();
+	
+	function getInstance() {
+		if (!instance) instance = new UserCacheService();
+	
+		return instance;
+	}
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10729,9 +10993,272 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(2);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	__webpack_require__(14);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var PostView = function () {
+		function PostView() {
+			_classCallCheck(this, PostView);
+	
+			this.template = (0, _jquery2.default)("<div></div>");
+		}
+	
+		_createClass(PostView, [{
+			key: "appendUser",
+			value: function appendUser(userView) {
+				this.template.find(".post-user").html(userView.template);
+			}
+		}, {
+			key: "render",
+			value: function render(postData) {
+				this.template.html("\n\t\t\t<section class=\"post\">\n\t\t\t\t<h2>" + postData.title + "</h2>\n\t\t\t\t<div class=\"post-user\"></div>\n\t\t\t\t<p>" + postData.body + "</p>\n\t\t\t</section>\n\t\t");
+			}
+		}]);
+	
+		return PostView;
+	}();
+	
+	exports.default = PostView;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(15);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(10)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".post {\n  background: #d6d3eb;\n  border-radius: 4px;\n  margin: 10px 30px;\n  padding: 10px;\n  box-shadow: 0 4px 0 0 #a19ca4; }\n  .post p {\n    margin: 0; }\n  .post h2 {\n    margin: 0 0 10px 0; }\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _jquery = __webpack_require__(2);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	__webpack_require__(17);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var PostsListView = function () {
+		function PostsListView() {
+			_classCallCheck(this, PostsListView);
+	
+			this.template = (0, _jquery2.default)("<ul class='posts-list'></ul>");
+		}
+	
+		_createClass(PostsListView, [{
+			key: "addItem",
+			value: function addItem(postView) {
+				var post = (0, _jquery2.default)("<li></li>");
+				post.append(postView.template);
+				this.template.append(post);
+			}
+		}]);
+	
+		return PostsListView;
+	}();
+	
+	exports.default = PostsListView;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(18);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(10)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".posts-list {\n  margin: 0;\n  padding: 0;\n  list-style: none; }\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _jquery = __webpack_require__(2);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	__webpack_require__(20);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var UserHeaderView = function () {
+		function UserHeaderView() {
+			_classCallCheck(this, UserHeaderView);
+	
+			this.template = (0, _jquery2.default)("<div></div>");
+		}
+	
+		_createClass(UserHeaderView, [{
+			key: "onSayHi",
+			value: function onSayHi(handler) {
+				this.sayHiHandler = handler;
+			}
+		}, {
+			key: "render",
+			value: function render(userData) {
+				this.template.html("\n\t\t\t<header class=\"user-header\">\n\t\t\t\t<h1>" + userData.name + "</h1>\n\t\t\t\t<ul>\n\t\t\t\t\t<li>" + userData.email + "</li>\n\t\t\t\t\t<li>" + userData.phone + "</li>\n\t\t\t\t</ul>\n\t\t\t\t<small>" + userData.address.street + ", " + userData.address.city + "</small>\n\t\t\t</header>\n\t\t");
+	
+				this.template.find("h1").on("click", this.sayHiHandler);
+			}
+		}]);
+	
+		return UserHeaderView;
+	}();
+	
+	exports.default = UserHeaderView;
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(21);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./style.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(10)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "header.user-header {\n  height: 150px;\n  background: #26297c;\n  color: white;\n  position: relative;\n  border-bottom: 5px solid #a19ca4; }\n  header.user-header h1 {\n    position: absolute;\n    left: 50px;\n    bottom: 20px;\n    font-size: 35px; }\n  header.user-header ul {\n    position: absolute;\n    left: 350px;\n    list-style: none;\n    bottom: 50px;\n    margin: 0;\n    padding: 0; }\n    header.user-header ul li {\n      padding: 0;\n      margin: 20px 0; }\n  header.user-header small {\n    position: absolute;\n    left: 350px;\n    bottom: 20px; }\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _jquery = __webpack_require__(2);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _RootAPI = __webpack_require__(23);
+	
+	var _UserCacheService = __webpack_require__(12);
+	
+	var _UserCacheService2 = _interopRequireDefault(_UserCacheService);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -10745,7 +11272,13 @@
 		_createClass(UsersService, null, [{
 			key: "get",
 			value: function get(id) {
-				return _jquery2.default.get("https://jsonplaceholder.typicode.com/users/" + id);
+				var promise = _jquery2.default.get(_RootAPI.RootAPI + "/users/" + id);
+				promise.then(function (user) {
+					(0, _UserCacheService2.default)().save(user);
+					return user;
+				});
+	
+				return promise;
 			}
 		}]);
 	
@@ -10753,6 +11286,96 @@
 	}();
 	
 	exports.default = UsersService;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var RootAPI = exports.RootAPI = "https://jsonplaceholder.typicode.com";
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _jquery = __webpack_require__(2);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _RootAPI = __webpack_require__(23);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var PostsService = function () {
+		function PostsService() {
+			_classCallCheck(this, PostsService);
+		}
+	
+		_createClass(PostsService, null, [{
+			key: "getPostsByUser",
+			value: function getPostsByUser(userId) {
+				return _jquery2.default.get(_RootAPI.RootAPI + "/posts/?userId=" + userId);
+			}
+		}]);
+	
+		return PostsService;
+	}();
+	
+	exports.default = PostsService;
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(26);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./style.scss", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./style.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(10)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "html, body {\n  padding: 0;\n  margin: 0;\n  font-family: sans-serif; }\n\nbody {\n  background: #e7e6f2; }\n", ""]);
+	
+	// exports
+
 
 /***/ }
 /******/ ]);
